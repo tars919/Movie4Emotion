@@ -1,9 +1,4 @@
-
-
-#go through add all emotions
-#go thtough and quote 
-
-
+#Make it a Gui interface
 
 #Sentiment analysis to classify movie -> recommending movie based on emotion
 #IBDM does not have an API so we need to perform scraping to get the titles
@@ -23,8 +18,10 @@ import requests as HTTP
 
 #---> Purpose: main function that will perform the scraping 
 #Takes in a emotion
+#Used a generatior for top 20 emotions people feel to categories movies for each type of emotion 
 def main(emotion):
 
+    #linking one of the main emotion options with a category of movie that lines up with the emotion
     urls = {
         "sad": "https://www.imdb.com/search/title/?genres=drama",
         "disgust": "https://www.imdb.com/search/title/?genres=music",
@@ -34,7 +31,24 @@ def main(emotion):
         "enjoyment": "https://www.imdb.com/search/title/?genres=thriller",
         "trust": "https://www.imdb.com/search/title/?genres=western",
         "surprise": "https://www.imdb.com/search/title/?genres=film-noir",
+        "adreneline": "https://www.imdb.com/search/title/?genres=action",
+        "happy": "https://www.imdb.com/search/title/?genres=comedy", 
+        "excitment": "https://www.imdb.com/search/title/?genres=adventure,action",
+        "love":"https://www.imdb.com/search/title/?genres=romance",
+        "anxiety":"https://www.imdb.com/search/title/?genres=sci-fi,thriller",
+        "contentment":"https://www.imdb.com/search/title/?genres=drama" ,
+        "gratitude":"https://www.imdb.com/search/title/?genres=fantasy",
+        "regret":"https://www.imdb.com/search/title/?genres=war",
+        "guilt":"https://www.imdb.com/search/title/?genres=sci-fi,crime",
+        "regret":"https://www.imdb.com/search/title/?genres=crime,war",
+        "jealousy":"https://www.imdb.com/search/title/?genres=romance,drama" ,
+        "pride":"https://www.imdb.com/search/title/?genres=documentary,reality-tv" ,
+        "relief":"https://www.imdb.com/search/title/?genres=comedy,short",
+        "hope":"https://www.imdb.com/search/title/?genres=fantasy,family",
+        "confusion":"https://www.imdb.com/search/title/?genres=sci-fi,thriller",
+        "boredom":"https://www.imdb.com/search/title/?genres=action,mystery"
     }
+
 
     if emotion not in urls:
         print("Emotion not recognized.")
@@ -71,8 +85,13 @@ def main(emotion):
 
 
 if __name__ == "__main__":
-    print("How are you feeling today?")
-    print("Here are the options to choose from: surprise, trust, anger, disgust, sad, anticipation, fear, enjoyment")
+    print("                                                 ")#to add a break 
+    print("How would you categorize your emotion at the moment?")
+    print("                                                 ")#to add a break 
+    print("Here are the options to choose from: ")
+    print("                                                 ")#to add a break 
+    print("Sadness, Disgust, Anger, Anticipation, Fear,Enjoyment, Trust, Surprise, Adrenaline, Happiness, Excitement, Love, Anxiety, Contentment, Gratitude, Regret, Guilt, Jealousy, Pride, Relief, Hope,Confusion, Boredom")
+    print("                                                 ")#to add a break
     emotion = input("Type your response here: ").lower()
     movie_suggestions = main(emotion)
 
@@ -81,4 +100,6 @@ if __name__ == "__main__":
             print(movie)
     else:
         print("No movie suggestions.")
+
+
 
