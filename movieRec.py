@@ -19,7 +19,7 @@ import requests as HTTP
 #---> Purpose: main function that will perform the scraping 
 #Takes in a emotion
 #Used a generatior for top 20 emotions people feel to categories movies for each type of emotion 
-def main(emotion):
+def main(emotion,store):
 
     #linking one of the main emotion options with a category of movie that lines up with the emotion
     urls = {
@@ -71,11 +71,20 @@ def main(emotion):
     #title = soup.find_all("a", attrs = {"href" : re.compile(r'\/title\/tt+\*/') })
 
 
+
+    
+
     if response.status_code == 200:
         soup = SOUP(response.text, 'html.parser')
         title_tags = soup.find_all("a", href=re.compile(r'\/title\/tt+\d+\/'))
         movie_titles = [tag.text for tag in title_tags]
-        return movie_titles[:10]  # Return top 5 movie titles had to double the margin when  status code is 200 multiply the total number you want by 2
+
+        #store ->>>>>> To allow the user to choose the amount of movie recommendation they want to receive 
+        #computation to set the exact margin
+        movie = int(store) * 2
+
+        
+        return movie_titles[: movie]  # Return top 5 movie titles had to double the margin when  status code is 200 multiply the total number you want by 2
     else:
         print("Error accessing the webpage. Status code:", response.status_code)
         return []
@@ -85,6 +94,7 @@ def main(emotion):
 
 
 if __name__ == "__main__":
+    store = input("How many movie suggestions do you want 1-50: " )
     print("                                                 ")#to add a break 
     print("How would you categorize your emotion at the moment?")
     print("                                                 ")#to add a break 
@@ -93,7 +103,7 @@ if __name__ == "__main__":
     print("Sadness, Disgust, Anger, Anticipation, Fear,Enjoyment, Trust, Surprise, Adrenaline, Happiness, Excitement, Love, Anxiety, Contentment, Gratitude, Regret, Guilt, Jealousy, Pride, Relief, Hope,Confusion, Boredom")
     print("                                                 ")#to add a break
     emotion = input("Type your response here: ").lower()
-    movie_suggestions = main(emotion)
+    movie_suggestions = main(emotion,store)
 
     if movie_suggestions:
         for movie in movie_suggestions:
