@@ -6,7 +6,9 @@ Project Overview: Sentiment Analysis for Movie Classification
 The project aims to analyze and classify movies based on their emotional impact on viewers.
 By scraping movie data from IMDb, we can recommend movies to users based on their emotional preferences.
 
-Intall:
+Took the original implementation a step forward by turning the GUI interface into a swift program to deploy to IOS devices.
+
+Install:
 pip install beautifulsoup4
 pip install lxml
 
@@ -23,5 +25,5 @@ Implementation steps:
    - add the swift soup dependency
    - fill in the content view and swift file
   
-4) make a more user friendly UI
+4) make a more user friendly UI by adding prompting 
 5) improve the capabilities of the IOS application 
