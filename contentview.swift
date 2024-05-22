@@ -1,9 +1,34 @@
 //
 //  ContentView.swift
+//  Movie4Emotion
+//
+//  Created by Tarika Selvaraj on 5/21/24.
+//
+
+//
+//  ContentView.swift
 //  MovieRecommendationApp
 //
 //  Created by Tarika Selvaraj on 5/20/24.
 //
+
+
+
+//TO DO:
+//
+//
+//#add more movie details -> starcast, breif description, release date,
+//#Make the UI more colorful and the UX should be better
+//#add a refresh button
+//#train against a dataset to show what other people like to watch when feeling this same information
+//add the directions and prompting for the user
+// add a loading screen for the app
+// maybe have it recommend and map the emotions and categories and  create and algorithm where the app will ask the user for emtion and generes they like and will use that to map and respond with the recommendations
+
+//STUFF TO GO BACK AND FIX:
+// rows display
+
+
 
 import SwiftUI
 import SwiftSoup
@@ -42,8 +67,12 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Movie Recommendation System")
+            Text("Movie4Emotion")
                 .font(.largeTitle)
+                .padding()
+            
+            Text("Choose on of theese emotions and type below!")
+                .font(.title3)
                 .padding()
 
             TextField("Enter your emotion here", text: $emotion)
@@ -87,6 +116,11 @@ struct ContentView: View {
             errorMessage = "Invalid URL."
             return
         }
+        
+        guard let count = Int(suggestionsCount), count > 0, count <= 50 else {
+                   errorMessage = "Please enter a number between 1 and 50."
+                   return
+               }
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
@@ -94,7 +128,7 @@ struct ContentView: View {
                     do {
                         let document = try SwiftSoup.parse(htmlContent)
                         let titleTags = try document.select("a[href^=/title/tt]").array()
-                        let titles = try titleTags.prefix(10).map { try $0.text() }
+                        let titles = try titleTags.prefix(count * 2).map { try $0.text() }
                         DispatchQueue.main.async {
                             movieSuggestions = titles
                             errorMessage = nil
